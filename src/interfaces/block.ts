@@ -1,7 +1,8 @@
-export interface BlockColumnsInterface {
-  blockNumber: "blockNumber";
-}
+import { Optional } from "sequelize";
 
-export interface BlockInterface {
-  blockNumber?: string | string[];
+export interface BlockAttributes {
+    id: number;
+    blockNumber: string;
 }
+export interface BlockInput extends Optional<BlockAttributes, 'id'> {}
+export interface BlockOuput extends BlockAttributes {}

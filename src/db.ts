@@ -1,21 +1,15 @@
-import { Pool } from "pg";
+// import { Pool } from "pg";
 import { DatabaseInterface } from "./interfaces/database";
-
+import { Sequelize } from 'sequelize'
 class Database implements DatabaseInterface{
-  public pl: Pool;
+  public sequelize: Sequelize;
 
   initialiseConnection() {
-    this.pl = new Pool({
-      user: process.env.DATABASE_USER,
-      database: process.env.DATABASE_NAME,
-      password: process.env.DATABASE_PASSWORD,
-      port: process.env.DATABASE_PORT as unknown as number,
-      host: process.env.DATABASE_HOST,
-    });
+    this.sequelize = new Sequelize(process.env.DATABASE_URL);
   }
 }
 
 const database = new Database();
 
-export const pl = database.pl;
+export const sequelize = database.sequelize;
 export default database;

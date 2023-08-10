@@ -1,11 +1,11 @@
 import axios from "axios";
 import converter from "hex2dec";
 import { FIRST_BLOCK } from "../../constants";
-import { blockModel } from "../../models/blocks";
+import BlockModel from "../../models/block";
 
 async function saveTransactions() {
   try {
-    const blocksWithTransactions = [];
+    const blocks = [];
     const { data } = await axios.get(
       "https://api.etherscan.io/api?module=proxy&action=eth_blockNumber"
     );
@@ -15,9 +15,9 @@ async function saveTransactions() {
       const { data } = await axios.get(
         `https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=${tag}&boolean=true`
       );
-      data?.result?.transactions && blocksWithTransactions.push(i);
+      data?.result?.transactions && blocks.push({ blockNumber: i });
       console.log(data.result.transactions);
-      // blockModel.insert()
+      await BlockModel.bulkCreate(blocks);
     }
   } catch (err) {
     console.log("Error occured while saving data: ", err);

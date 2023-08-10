@@ -1,6 +1,6 @@
-import { Pool } from "pg";
+import { Sequelize } from "sequelize";
 
 export interface DatabaseInterface {
-    pl: Pool,
+    sequelize: Sequelize,
     initialiseConnection: () => void;
 }
