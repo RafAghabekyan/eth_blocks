@@ -2,6 +2,7 @@ import axios from "axios";
 import converter from "hex2dec";
 import { FIRST_BLOCK } from "../../constants";
 import BlockModel from "../../models/block";
+import TransactionModel from "../../models/transactions";
 
 async function saveTransactions() {
   try {
@@ -18,6 +19,7 @@ async function saveTransactions() {
       data?.result?.transactions && blocks.push({ blockNumber: i });
       console.log(data.result.transactions);
       await BlockModel.bulkCreate(blocks);
+      // await TransactionModel.bulkCreate()
     }
   } catch (err) {
     console.log("Error occured while saving data: ", err);
