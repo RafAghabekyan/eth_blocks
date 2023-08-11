@@ -34,7 +34,11 @@ TransactionModel.init(
       type: DataTypes.STRING,
     },
   },
-  { sequelize: database.sequelize, modelName: "TransactionModel" }
+  {
+    sequelize: database.sequelize,
+    modelName: "transactions",
+    timestamps: false,
+  }
 );
 
 export default TransactionModel;

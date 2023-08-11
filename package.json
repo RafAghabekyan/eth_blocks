@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "aaa": "node dist/",
     "start": "npx tsc && node dist/",
-    "crons": "node ./dist/cronjobs",
+    "crons": "npx tsc && node ./dist/cronjobs.js",
     "migrate": "node-pg-migrate"
   },
   "author": "",

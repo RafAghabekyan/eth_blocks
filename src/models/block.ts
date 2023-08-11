@@ -1,9 +1,9 @@
-import { DataTypes, Model } from "sequelize";
-import { BlockAttributes, BlockInput } from "../interfaces/block";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import database from "../db";
 
-class BlockModel extends Model<BlockAttributes, BlockInput> {
-  public blockNumber: string;
+class BlockModel extends Model<InferAttributes<BlockModel>, InferCreationAttributes<BlockModel>> {
+  declare id: CreationOptional<number>;
+  declare blockNumber: string;
   public static initialise() {
     BlockModel.init(
       {
@@ -17,7 +17,7 @@ class BlockModel extends Model<BlockAttributes, BlockInput> {
           allowNull: true,
         },
       },
-      { sequelize: database.sequelize, modelName: "BlockModel" }
+      { sequelize: database.sequelize, modelName: "blocks", timestamps: false }
     );
   }
 }

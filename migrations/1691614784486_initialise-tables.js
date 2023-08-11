@@ -3,7 +3,7 @@ exports.up = (pgm) => {
     "blocks",
     {
       id: "id",
-      blockNumber: { type: "bytea", notNull: true },
+      blockNumber: { type: "string", notNull: true },
     },
     {
       ifNotExists: true,
@@ -13,14 +13,14 @@ exports.up = (pgm) => {
     "transactions",
     {
       id: "id",
-      blockId: { type: 'serial', references: "blocks", notNull: true },
+      blockId: { type: "serial", references: "blocks", notNull: true },
       from: {
-        type: "bytea",
+        type: "string",
         notNull: true,
       },
-      to: { type: "bytea", notNull: true },
+      to: { type: "string", notNull: true },
       value: {
-        type: "bytea",
+        type: "string",
         notNull: true,
       },
     },
