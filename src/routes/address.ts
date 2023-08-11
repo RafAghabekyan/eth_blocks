@@ -1,20 +1,16 @@
 import { Router } from "express";
 import AddressController from "../controllers/address";
 
-class Address {
-    public router = Router();
-    
-    private addressController: AddressController;
-    private path = '/address'
+const createAddressRouter = () => {
+  const router = Router();
+  const path = "/address";
+  const addressController = new AddressController();
+  router.get(
+    `${path}/highestBalance`,
+    addressController.getHighestBalanceAddress.bind(addressController)
+  );
 
-    constructor() {
-        this.addressController = new AddressController()
-        this.initialiseRoutes();
-    }
+  return router;
+};
 
-    private initialiseRoutes() {
-        this.router.get(`${this.path}/highestBalance`, this.addressController.getHighestBalanceAddress);
-    }
-}
-
-export default Address;
+export default createAddressRouter();

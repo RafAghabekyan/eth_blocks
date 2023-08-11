@@ -7,18 +7,18 @@ dotenv.config()
 
 async function main() {
   try {
-    console.log(process.env.DATABASE_URL)
     await database.initialiseConnection();
     console.log("Connection with DB initialised");
     await database.initialiseModels();
     console.log("DB models initialised");
     // SAVE TRANSACTIONS OF LAST 100 blocks every minute
-    saveTransactions();
-    // cron.schedule("* * * * *", () => {
-    //   saveTransactions();
-    // });
+    cron.schedule("* * * * *", async () => {
+      console.log('CRON FOR SAVING TRANSACTIONS STARTED!!!')
+      await saveTransactions();
+      console.log('CRON FOR SAVING TRANSACTIONS FINISHED!!!')
+    });
   } catch (error) {
-    console.log("Error occured while runing cronjobs: ", error);
+    console.error("Error occured while runing cronjobs: ", error);
   }
 }
 

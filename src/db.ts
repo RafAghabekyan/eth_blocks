@@ -1,14 +1,13 @@
 import { DatabaseInterface } from "./interfaces/database";
-import { Sequelize } from 'sequelize'
-import BlockModel from "./models/block";
+import { Sequelize } from "sequelize";
+import models from "./models";
+
 class Database implements DatabaseInterface {
   public sequelize: Sequelize;
   public models;
 
   constructor() {
-    this.models = [
-      BlockModel,
-    ]
+    this.models = models;
   }
 
   async initialiseConnection() {
@@ -16,7 +15,7 @@ class Database implements DatabaseInterface {
   }
 
   async initialiseModels() {
-    this.models.forEach(model => {
+    this.models.forEach((model) => {
       model.initialise();
     });
   }

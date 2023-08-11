@@ -1,12 +1,18 @@
-import BlockModel from "../models/block"
+import BlockModel from "../models/block";
 import converter from "hex2dec";
 
 class BlockAdapter {
-    async findLast() {
-        const { dataValues } = await BlockModel.findOne({ order: [["id", "DESC"]] })
-        const blockNumber: number = Number(converter.hexToDec(dataValues.blockNumber))
-        return blockNumber;
-    }
+  async findAll(query = {}) {
+    const result = await BlockModel.findAll(query);
+    return result.map(block => block.dataValues.blockNumber);
+  }
+  async findLast() {
+    const result = await BlockModel.findOne({ order: [["id", "DESC"]] });
+    const blockNumber: number | null = result?.dataValues?.blockNumber
+      ? Number(converter.hexToDec(result?.dataValues?.blockNumber))
+      : null;
+    return blockNumber;
+  }
 }
 
-export const blockAdapter = new BlockAdapter()
+export const blockAdapter = new BlockAdapter();

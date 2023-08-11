@@ -1,7 +1,16 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from "sequelize";
 import database from "../db";
 
-class BlockModel extends Model<InferAttributes<BlockModel>, InferCreationAttributes<BlockModel>> {
+class BlockModel extends Model<
+  InferAttributes<BlockModel>,
+  InferCreationAttributes<BlockModel>
+> {
   declare id: CreationOptional<number>;
   declare blockNumber: string;
   public static initialise() {
@@ -10,11 +19,12 @@ class BlockModel extends Model<InferAttributes<BlockModel>, InferCreationAttribu
         id: {
           type: DataTypes.INTEGER.UNSIGNED,
           autoIncrement: true,
-          primaryKey: true,
         },
         blockNumber: {
           type: DataTypes.STRING,
           allowNull: true,
+          unique: true,
+          primaryKey: true,
         },
       },
       { sequelize: database.sequelize, modelName: "blocks", timestamps: false }

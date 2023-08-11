@@ -2,8 +2,13 @@ exports.up = (pgm) => {
   pgm.createTable(
     "blocks",
     {
-      id: "id",
-      blockNumber: { type: "string", notNull: true },
+      id: { type: "serial" },
+      blockNumber: {
+        type: "string",
+        notNull: true,
+        unique: true,
+        primaryKey: true,
+      },
     },
     {
       ifNotExists: true,
@@ -13,7 +18,7 @@ exports.up = (pgm) => {
     "transactions",
     {
       id: "id",
-      blockId: { type: "serial", references: "blocks", notNull: true },
+      blockNumber: { type: "string", references: "blocks", notNull: true },
       from: {
         type: "string",
         notNull: true,
