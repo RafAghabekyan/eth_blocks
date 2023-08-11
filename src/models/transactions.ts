@@ -3,7 +3,7 @@ import {
   TransactionAttributes,
   TransactionInput,
 } from "../interfaces/transactions";
-import { sequelize } from "../db";
+import database from "../db";
 import BlockModel from "./block";
 
 class TransactionModel extends Model<TransactionAttributes, TransactionInput> {
@@ -34,7 +34,7 @@ TransactionModel.init(
       type: DataTypes.STRING,
     },
   },
-  { sequelize, modelName: "TransactionModel" }
+  { sequelize: database.sequelize, modelName: "TransactionModel" }
 );
 
 export default TransactionModel;

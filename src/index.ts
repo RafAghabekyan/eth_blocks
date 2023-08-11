@@ -4,8 +4,14 @@ import Address from './routes/address';
 
 dotenv.config()
 
-const app = new App([
-  new Address(),
-]);
+async function main() {
+  const app = new App()
+  await app.initialiseConnectionToDb()
+  app.initialiseModels();
+  app.initialiseRoutes([
+    new Address()
+  ])
+  app.listen()
+}
 
-app.listen()
+main();
