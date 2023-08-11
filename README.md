@@ -1,4 +1,4 @@
-# build application
+# build the application
 
 ```sh
 npm run build
@@ -16,7 +16,7 @@ npm run migrate up
 npm run crons
 ```
 
-# start application
+# start the application
 
 ```sh
 npm start
